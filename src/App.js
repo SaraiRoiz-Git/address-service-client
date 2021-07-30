@@ -1,23 +1,35 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useEffect } from 'react';
+import { getAllAddress } from './axios/axios';
+import { useDispatch } from 'react-redux';
+import * as action from "./redux/actions/actions";
+import { useState } from 'react';
+import AutoCompleate from './components/AutoCompleate';
 
 function App() {
+
+  const dispatch = useDispatch()
+  const [modal, setModal] = useState(false)
+  const [errors, setErrors] = useState("")
+
+  const callbackSuccess = response => {
+    if (response) {
+        dispatch(action.onEnter(response.data));
+    }
+}
+
+const callbackFailur = (response) => {
+    setErrors(response.response.data.message);
+    setModal(true);
+};
+  useEffect(() => {
+    getAllAddress(callbackSuccess, callbackFailur)
+    
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AutoCompleate></AutoCompleate>
     </div>
   );
 }
