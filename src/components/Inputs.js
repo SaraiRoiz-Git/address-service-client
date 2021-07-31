@@ -39,21 +39,17 @@ export default function Inputs() {
     return (
         <div>
             <Container>
-
                 <InputsContainer>
                     <TextField m={5} id="outlined-basic" label="Add an address" variant="outlined" onChange={(e) => setAddress(e.target.value)} />
                     <TextField type="number" id="outlined-basic" label="Add number of people" variant="outlined" onChange={(e) => setPeople(e.target.value)} />
                 </InputsContainer>
-
-                <Btn>
-                    <Button variant="contained" paddingTop={2} color="primary" onClick={displayClosestPeople}>
-                        Submit
-                    </Button>
-                </Btn>
+                <Button variant="contained" color="primary" onClick={displayClosestPeople}>
+                    Submit
+                </Button>
             </Container>
             <Waiting display={progress}>
-            <CircularProgress />
-            </Waiting> 
+                <CircularProgress />
+            </Waiting>
             <TableDisplay display={nearbyAddress.length > 0}>
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="customized table">
@@ -78,7 +74,6 @@ export default function Inputs() {
                     </Table>
                 </TableContainer>
             </TableDisplay>
-
         </div>
 
     )
@@ -115,8 +110,6 @@ align-items: center;
  margin-bottom: 30px;
  flex-wrap: wrap;
 `
-const Btn = styled.div`
-`
 const InputsContainer = styled.div`
 display:flex;
 flex-wrap: wrap;
@@ -125,9 +118,7 @@ const TableDisplay = styled.div`
 display:${({ display }) => display ? "block" : "none"};
 `
 const Waiting = styled.div`
-margin:auto;
-width: 100vw;
-display:flex;
+margin: 20px auto;
 justify-content: center;;
-display:${({ display }) => display ? "block" : "none"};
+display:${({ display }) => display ? "flex" : "none"};
 `
