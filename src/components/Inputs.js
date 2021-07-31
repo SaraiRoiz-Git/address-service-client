@@ -10,30 +10,36 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 export default function Inputs() {
 
     const [address, setAddress] = useState("")
     const [people, setPeople] = useState(3);
     const [nearbyAddress, setNearbyAddress] = useState([])
-
+    const [progress, setProgress] = useState(false)
     const displayClosestPeople = () => {
+        setProgress(true)
         getNearbyAddress(callbackSuccess, callbackFailur, address, people)
     }
 
     const callbackSuccess = response => {
+        setProgress(false)
         if (response) {
             setNearbyAddress(response.data)
         }
     }
 
     const callbackFailur = (response) => {
-        alert(Error, response)
+        setProgress(false)
+        alert(Error, response);
     };
 
     const classes = useStyles();
     return (
         <div>
             <Container>
+
                 <InputsContainer>
                     <TextField m={5} id="outlined-basic" label="Add an address" variant="outlined" onChange={(e) => setAddress(e.target.value)} />
                     <TextField type="number" id="outlined-basic" label="Add number of people" variant="outlined" onChange={(e) => setPeople(e.target.value)} />
@@ -45,6 +51,9 @@ export default function Inputs() {
                     </Button>
                 </Btn>
             </Container>
+            <Waiting display={progress}>
+            <CircularProgress />
+            </Waiting> 
             <TableDisplay display={nearbyAddress.length > 0}>
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="customized table">
@@ -113,5 +122,12 @@ display:flex;
 flex-wrap: wrap;
 `
 const TableDisplay = styled.div`
+display:${({ display }) => display ? "block" : "none"};
+`
+const Waiting = styled.div`
+margin:auto;
+width: 100vw;
+display:flex;
+justify-content: center;;
 display:${({ display }) => display ? "block" : "none"};
 `
