@@ -8,6 +8,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-   align-content: f;
+ 
+  
+}
+.MuiFormControl-root {
+  width: 300px;
+  margin-right: 15px !important;
+  margin-bottom: 15px !important;
   
 }

@@ -1,7 +1,6 @@
 
 import './App.css';
 import Inputs from './components/Inputs';
-import AddressTable from './components/AddressTable';
 import styled from 'styled-components'
 
 export default function App() {
