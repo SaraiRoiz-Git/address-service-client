@@ -1,37 +1,52 @@
 
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllAddress } from './axios/axios';
 import { useDispatch } from 'react-redux';
 import * as action from "./redux/actions/actions";
-import { useState } from 'react';
-import AutoCompleate from './components/AutoCompleate';
+import AutoCompleate from './components/Inputs';
+import AddressTable from './components/AddressTable';
+import styled from 'styled-components'
 
-function App() {
+export default function App() {
 
   const dispatch = useDispatch()
-  const [modal, setModal] = useState(false)
-  const [errors, setErrors] = useState("")
 
   const callbackSuccess = response => {
     if (response) {
-        dispatch(action.onEnter(response.data));
+      // console.log("response.data",response.data)
+      dispatch(action.onEnter(response.data));
     }
-}
+  }
 
-const callbackFailur = (response) => {
-    setErrors(response.response.data.message);
-    setModal(true);
-};
+  const callbackFailur = (response) => {
+    alert(Error,response)
+  };
   useEffect(() => {
-    getAllAddress(callbackSuccess, callbackFailur)
-    
+    // getAllAddress(callbackSuccess, callbackFailur)
+
   }, [])
   return (
-    <div className="App">
-      <AutoCompleate></AutoCompleate>
-    </div>
+    <Container>
+      <Title>Address nearby</Title>
+      <SubTitle>Please choose an address and number of people nearby:</SubTitle> 
+        <AutoCompleate></AutoCompleate>
+        <AddressTable></AddressTable>
+  
+    </Container>
+
   );
 }
 
-export default App;
+
+
+const Container = styled.div`
+margin: auto;
+width: 60vw;
+`
+const Title = styled.h1`
+font-weight: 300;
+`
+const SubTitle = styled.h3`
+font-weight: 300;
+`
