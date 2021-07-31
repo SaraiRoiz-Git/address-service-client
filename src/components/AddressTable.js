@@ -11,8 +11,6 @@ import { useSelector } from "react-redux";
 import styled from 'styled-components'
 
 export default function AddressTable() {
-
-  const closestPeople = useSelector(state => state ? state.closestPeople : null)
   function createData(name, address, distance) {
     return { name, address, distance };
   }
@@ -26,11 +24,9 @@ export default function AddressTable() {
     createData('Gingerbread', 356, 16.0),
   ];
   const classes = useStyles();
-  if (closestPeople) {
 
-  }
   return (
-    <Container display={closestPeople !== null}>
+    <Container>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -83,6 +79,6 @@ const useStyles = makeStyles({
 
 const Container = styled.div`
 margin-top: 30px;
-//display:${display=>display==true?"block":"none"};
+//display:${display => display === true ? "block" : "none"};
 align-items: center;
 `
