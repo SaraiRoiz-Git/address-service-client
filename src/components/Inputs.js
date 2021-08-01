@@ -32,7 +32,7 @@ export default function Inputs() {
 
     const callbackFailur = (response) => {
         setProgress(false)
-        alert(Error, response);
+        alert("ERROR -server connection error");
     };
 
     const classes = useStyles();
